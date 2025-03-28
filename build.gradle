@@ -1,0 +1,57 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.joeproject'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Dependencias principales
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// PostgreSQL
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// DevTools para hot reload (solo en desarrollo)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Dependencias de Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // Incluye JUnit 5, Mockito y AssertJ
+	testImplementation 'io.projectreactor:reactor-test'  // Para testear programación reactiva
+	testImplementation 'org.springframework.security:spring-security-test'  // Para testear seguridad con Spring Security
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
